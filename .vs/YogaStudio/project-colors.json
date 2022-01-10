@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "6adff029-ab0f-4bcd-9ef6-b258fc0ed738": {
+      "ProjectGuid": "6adff029-ab0f-4bcd-9ef6-b258fc0ed738",
+      "DisplayName": "YogaStudio",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "File esterni",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}

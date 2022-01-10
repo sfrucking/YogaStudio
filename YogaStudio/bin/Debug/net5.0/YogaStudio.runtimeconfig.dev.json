@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\MarcoTavella\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\MarcoTavella\\.nuget\\packages"
+    ]
+  }
+}
