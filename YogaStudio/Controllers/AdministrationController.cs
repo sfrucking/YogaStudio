@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
+using YogaStudio.DTOs;
 using YogaStudio.Models;
 using YogaStudio.Services;
 
@@ -13,12 +15,12 @@ namespace YogaStudio.Controllers
     [ApiController]
     public class AdministrationController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly UserService _service;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, UserService service)
+        public AdministrationController(RoleManager<Role> roleManager, UserManager<User> userManager, SignInManager<User> signInManager, UserService service)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -30,7 +32,7 @@ namespace YogaStudio.Controllers
         [HttpPost("CreateRole")]
         public async Task<IActionResult> CreateRole([FromForm] Dictionary<string, string> diz)
         {
-            IdentityRole role = new IdentityRole();
+            Role role = new Role();
             
             foreach (string element in diz.Keys)
             {
@@ -52,26 +54,18 @@ namespace YogaStudio.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("AddAdminUser")]
-        public async Task<IActionResult> AddAdminUser()
-        {
-            var user = await _userManager.GetUserAsync(User);
-
-            if (!(await _userManager.IsInRoleAsync(user, "Admin")))
-            {
-                await _userManager.AddToRoleAsync(user, "Admin");
-            }
-
-            return Redirect("/swagger/index.html");
-        }
-
-        [Authorize(Roles = "Admin")]
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             return await Task.Run(() => Json(_service.GetAll()));
         }
         
+        [Authorize(Roles = "Admin")]
+        [HttpPost("SwitchRoles")]
+        public async Task<IActionResult> SwitchRoles([FromBody] UserRoleDTO usr)
+        {
+            return await Task.Run(() => Json(_service.UpdateRole(usr.Id, usr.Role)));
+        }
 
     }
 }

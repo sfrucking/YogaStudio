@@ -10,11 +10,11 @@ namespace YogaStudio.Controllers
     [ApiController]
     public class SubscriptionController : ControllerBase
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public SubscriptionController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager, SignInManager<User> signInManager)
+        public SubscriptionController(RoleManager<Role> roleManager, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -26,7 +26,7 @@ namespace YogaStudio.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if(!(await _userManager.IsInRoleAsync(user, "Subscriber")))
+            if (!(await _userManager.IsInRoleAsync(user, "Subscriber")))
             {
                 await _userManager.AddToRoleAsync(user, "Subscriber");
             }

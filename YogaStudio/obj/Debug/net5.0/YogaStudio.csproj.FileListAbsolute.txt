@@ -82,3 +82,7 @@ C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\
 C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\obj\Debug\net5.0\ref\YogaStudio.dll
 C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\obj\Debug\net5.0\YogaStudio.pdb
 C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\obj\Debug\net5.0\YogaStudio.genruntimeconfig.cache
+C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\MarcoTavella\OneDrive - Integris s.p.a\Documenti\YogaStudio\YogaStudio\YogaStudio\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

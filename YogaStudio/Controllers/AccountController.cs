@@ -22,7 +22,6 @@ namespace YogaStudio.Controllers
             this.signInManager = signInManager;
         }
 
-
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromForm]Dictionary<string, string> diz)
         {
@@ -69,6 +68,13 @@ namespace YogaStudio.Controllers
 
         }
 
-        
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+
+            return Redirect("/swagger/index.html");
+
+        }
     }
 }

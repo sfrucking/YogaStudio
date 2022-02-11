@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 using YogaStudio.Data;
 using YogaStudio.Models;
 using YogaStudio.Services;
+
 
 namespace YogaStudio
 {
@@ -31,7 +33,7 @@ namespace YogaStudio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>();
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataContext>();
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<DataContext>();
             services.AddScoped<UserService>();
 
             services.Configure<IdentityOptions>(options =>
@@ -44,7 +46,8 @@ namespace YogaStudio
 
             services.ConfigureApplicationCookie(opt => opt.AccessDeniedPath = "/swagger/index.html");
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "YogaStudio", Version = "v1" });
