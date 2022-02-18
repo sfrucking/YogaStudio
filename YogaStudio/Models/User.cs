@@ -9,6 +9,6 @@ namespace YogaStudio.Models
     public class User : IdentityUser
     {
         public List<UserRole> Roles { get; set; }  
-        public Subscription Subscription { get; set; }
+        public List<UserSubscription> UserSubscriptions { get; set; }
     }
 }

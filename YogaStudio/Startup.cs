@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +46,29 @@ namespace YogaStudio
                 options.Password.RequiredUniqueChars = 0;
             });
 
-            services.ConfigureApplicationCookie(opt => opt.AccessDeniedPath = "/swagger/index.html");
+            //services.ConfigureApplicationCookie(opt => { opt.AccessDeniedPath = "/Views/Denied/Denied.cshtml"; opt.LoginPath = "/Views/Denied/Denied.cshtml"; });
 
-            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Events.OnRedirectToAccessDenied =
+                    options.Events.OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Method != "GET")
+                        {
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            return Task.FromResult<object>(null);
+                        }
+                        else
+                        {
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            return Task.FromResult<object>(null);
+                        }
+                    };
+            });
 
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "YogaStudio", Version = "v1" });
@@ -57,6 +78,9 @@ namespace YogaStudio
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["PublishableKey"]);
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

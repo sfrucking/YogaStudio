@@ -1,0 +1,26 @@
+﻿@using Microsoft.Extensions.Options
+@using YogaStudio.Models
+@inject IOptions<YogaStudio.Data.StripeSettings> Stripe
+@model List<YogaStudio.Models.Subscription>
+
+@foreach(Subscription s in Model)
+{
+	<div>
+		<form action="/Subscription/Subscribe" method="post">
+			<article>
+				<label>Amount: @s.Price</label>
+			</article>
+			<script src="//checkout.stripe.com/v2/checkout.js"
+					class="stripe-button"
+					data-key="@Stripe.Value.PublishableKey"
+					data-locale="auto"
+					data-description="Sample Charge"
+					data-amount=@(s.Price * 100)>
+			</script>
+			<input type="text" id="amount" name="amount" value=@(s.Price * 100) hidden>
+			<input type="text" id="type" name="type" value=@s.Type hidden>
+			<input type="number" id="id" name="id" value=@s.Id hidden>
+		</form>
+	</div>
+}
+	

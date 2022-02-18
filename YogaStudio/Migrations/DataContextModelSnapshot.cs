@@ -304,14 +304,11 @@ namespace YogaStudio.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("IsValid")
-                        .HasColumnType("boolean");
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
 
-                    b.Property<DateTime>("SubInit")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("SubscriptionExpiringDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -363,9 +360,6 @@ namespace YogaStudio.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
-                    b.Property<int?>("SubscriptionId")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -382,9 +376,34 @@ namespace YogaStudio.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("YogaStudio.Models.UserSubscription", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("SubscriptionId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("SubInit")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("SubscriptionExpiringDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("UserId", "SubscriptionId");
+
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("AspNetUsers");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserSubscription");
                 });
 
             modelBuilder.Entity("YogaStudio.Models.Role", b =>
@@ -470,13 +489,23 @@ namespace YogaStudio.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("YogaStudio.Models.User", b =>
+            modelBuilder.Entity("YogaStudio.Models.UserSubscription", b =>
                 {
                     b.HasOne("YogaStudio.Models.Subscription", "Subscription")
-                        .WithMany("Users")
-                        .HasForeignKey("SubscriptionId");
+                        .WithMany("UserSubscriptions")
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YogaStudio.Models.User", "User")
+                        .WithMany("UserSubscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Subscription");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YogaStudio.Models.UserRole", b =>
@@ -505,12 +534,14 @@ namespace YogaStudio.Migrations
 
             modelBuilder.Entity("YogaStudio.Models.Subscription", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("UserSubscriptions");
                 });
 
             modelBuilder.Entity("YogaStudio.Models.User", b =>
                 {
                     b.Navigation("Roles");
+
+                    b.Navigation("UserSubscriptions");
                 });
 
             modelBuilder.Entity("YogaStudio.Models.Role", b =>

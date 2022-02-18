@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MarcoTavella\\OneDrive - Integris s.p.a\\Documenti\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj": {}
+    "C:\\Users\\Marco\\Documents\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MarcoTavella\\OneDrive - Integris s.p.a\\Documenti\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj": {
+    "C:\\Users\\Marco\\Documents\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MarcoTavella\\OneDrive - Integris s.p.a\\Documenti\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj",
+        "projectUniqueName": "C:\\Users\\Marco\\Documents\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj",
         "projectName": "YogaStudio",
-        "projectPath": "C:\\Users\\MarcoTavella\\OneDrive - Integris s.p.a\\Documenti\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj",
-        "packagesPath": "C:\\Users\\MarcoTavella\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MarcoTavella\\OneDrive - Integris s.p.a\\Documenti\\YogaStudio\\YogaStudio\\YogaStudio\\obj\\",
+        "projectPath": "C:\\Users\\Marco\\Documents\\YogaStudio\\YogaStudio\\YogaStudio\\YogaStudio.csproj",
+        "packagesPath": "C:\\Users\\Marco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Marco\\Documents\\YogaStudio\\YogaStudio\\YogaStudio\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\MarcoTavella\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Marco\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,6 +65,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.10, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[39.90.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

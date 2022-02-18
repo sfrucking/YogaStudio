@@ -10,13 +10,10 @@ namespace YogaStudio.Models
         [Column("id")]
         public int Id { get; set; }
         //all iscrizione aggiungo 30 a expiring
-        public DateTime SubscriptionExpiringDate { get; set; }
-        //nel momento in cui si iscrive .now
-        public DateTime SubInit { get; set; }
-        private bool isValid;
-        public bool IsValid { get => isValid; set { if (SubscriptionExpiringDate > SubInit) value = false; } }
+        public double Price { get; set; }
+        public string Type { get; set; }
         public List<Lesson> Lessons { get; set; }
-        public List<User> Users { get; set; }
+        public List<UserSubscription> UserSubscriptions { get; set; }
         
     }
 }
